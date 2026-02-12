@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_shopping_app/models/product.dart';
+
+part 'products_provider.g.dart';
 
 const List<Product>allProducts = [
   Product(id: '1', title: 'Groovy Shorts', price: 12, image: 'assets/products/shorts.png'),
@@ -11,16 +14,31 @@ const List<Product>allProducts = [
   Product(id: '7', title: 'Roller Skates', price: 52, image: 'assets/products/skates.png'),
   Product(id: '8', title: 'Electric Guitar', price: 79, image: 'assets/products/guitar.png'),
 ];
-
 // Make a provider
 // This is gonna provide a read only state value
-final productsProvider = Provider((ref) {
-  return allProducts;
-});
+/**
+ * final productsProvider = Provider((ref) {
+    return allProducts;
+    });
 
-final reducedProductsProvider = Provider((ref) {
-  // Return only the products where the price is < 50
-  return allProducts.where((price) =>
+    final reducedProductsProvider = Provider((ref) {
+    // Return only the products where the price is < 50
+    return allProducts.where((price) =>
     price.price < 50
+    ).toList();
+    });
+ */
+
+
+// Generated Providers
+@riverpod
+List<Product> products(ref) {
+  return allProducts;
+}
+
+@riverpod
+List<Product> reducedProducts(ref) {
+  return allProducts.where((price) =>
+  price.price < 50
   ).toList();
-});
+}
