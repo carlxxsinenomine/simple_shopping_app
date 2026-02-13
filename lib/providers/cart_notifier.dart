@@ -1,17 +1,18 @@
 
 
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../models/product.dart';
+import 'package:simple_shopping_app/models/product.dart';
 
-class CartNotifier extends Notifier<Set<Product>> { // Use Set instead of List cause we don't want any duplicates
+part 'cart_notifier.g.dart';
+
+@riverpod
+class CartNotifier extends _$CartNotifier { // Use Set instead of List cause we don't want any duplicates
  // Define the initial value of the state
   @override
   Set<Product> build() {
-    return const {
-      Product(id: '4', title: 'Red Backpack', price: 14, image: 'assets/products/backpack.png'),
-    };
+    return const {};
   }
   // Make methods to update the state
   // Inside any method here in this class we get access to a state object ( Since naka-inherit sa Notifier )
@@ -36,6 +37,8 @@ class CartNotifier extends Notifier<Set<Product>> { // Use Set instead of List c
 }
 
 // This is the provider that we will use inside any Consumer
-final cartNotifierProvider = NotifierProvider<CartNotifier, Set<Product>>(() {
-  return CartNotifier(); // Returns a Set of Product object
-});
+
+// Remove this since we gonna let riverpod generate this provider for us
+// final cartNotifierProvider = NotifierProvider<CartNotifier, Set<Product>>(() {
+//   return CartNotifier(); // Returns a Set of Product object
+// });
