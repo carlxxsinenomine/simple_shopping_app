@@ -1,6 +1,7 @@
 
 
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:simple_shopping_app/models/product.dart';
@@ -42,3 +43,15 @@ class CartNotifier extends _$CartNotifier { // Use Set instead of List cause we 
 // final cartNotifierProvider = NotifierProvider<CartNotifier, Set<Product>>(() {
 //   return CartNotifier(); // Returns a Set of Product object
 // });
+
+@riverpod // To say we're gonna use the code generation
+int cartTotal(ref) {
+  final cartProducts = ref.watch(cartNotifierProvider);
+  int total = 0;
+
+  for(Product product in cartProducts) {
+    total += product.price;
+  }
+
+  return total;
+}
